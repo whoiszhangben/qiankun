@@ -1,36 +1,62 @@
 <template>
   <a-layout id="components-layout-demo-side" style="min-height: 100vh">
-    <a-layout-sider v-model="collapsed" collapsible>
-      <div class="logo">掘金作者：逐步前行</div>
-      <a-menu theme="dark" :default-selected-keys="['1']" mode="inline">
-        <a-sub-menu :key="index + ''" v-for="(item, index) in menu">
-          <span slot="title">
-            <span>{{ item.name }}</span>
-          </span>
-          <a-menu-item :key="index + '_' + cIndex" v-for="(cItem, cIndex) in item.children" @click="selecMenu(index, cIndex)">
-            {{ cItem.name }}
-          </a-menu-item>
-        </a-sub-menu>
+    <div class="header">
+      <div class="toplogo"><img src='../assets/logo.png' />大气环境溯源分析</div>
+      <a-menu
+        theme="dark"
+        mode="horizontal"
+        :default-selected-keys="['2']"
+        :style="{ lineHeight: '64px' }"
+      >
+        <a-menu-item key="1">
+          <a-icon type="home" />
+          <span>站点画像</span>
+        </a-menu-item>
+        <a-menu-item key="2">
+          <a-icon type="environment" />
+          <span>告警地图</span>
+        </a-menu-item>
+        <a-menu-item key="3">
+          <a-icon type="bar-chart" />
+          <span>污染传输</span>
+        </a-menu-item>
+        <a-menu-item key="4">
+          <a-icon type="heat-map" />
+          <span>污染特征分析</span>
+        </a-menu-item>
+        <a-menu-item key="5">
+          <a-icon type="line-chart" />
+          <span>气象相关性分析</span>
+        </a-menu-item>
+        <a-menu-item key="6">
+          <a-icon type="radar-chart" />
+          <span>臭氧预测分析</span>
+        </a-menu-item>
+      </a-menu>
+      <span class="user" v-if="getToken" @click="out">admin<a-icon type="down" /></span>
+      <span class="user" v-else @click="login">登陆</span>
+    </div>
+    <a-layout>
+        <a-layout-sider v-model="collapsed" style="background: #fff">
+      <a-menu theme="light" :default-selected-keys="['1']" mode="inline">
+        <template v-for="(item, index) in menu">
+            <a-menu-item :key="'menu'+index" v-if="!item.children" @click="selecMenu(index)">
+                <a-icon :type="item.icon" />
+                <span>{{ item.name }}</span>
+            </a-menu-item>
+            <a-sub-menu :key="'menu' + index + ''" v-else>
+                <span slot="title">
+                    <a-icon :type="item.icon" />
+                    <span>{{ item.name }}</span>
+                </span>
+                <a-menu-item :key="index + '_' + cIndex" v-for="(cItem, cIndex) in item.children" @click="selecMenu(index, cIndex)">
+                    {{ cItem.name }}
+                </a-menu-item>
+            </a-sub-menu>
+        </template>
       </a-menu>
     </a-layout-sider>
     <a-layout>
-      <a-layout-header style="background: #fff; padding: 0; font-weight: bold">
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 20px">
-          <div>
-            个人微前端实践
-            <a href="https://juejin.cn/user/4195392104696519">点击教程</a>
-          </div>
-          <div>
-            <!--
-            <span>
-              当前全局主应用消息:<b style="color: red">{{ message }}</b>
-            </span>
-            -->
-            <a-button v-if="!getToken" type="primary" @click="login">去登陆</a-button>
-            <a-button v-if="getToken" type="primary" @click="out">退出</a-button>
-          </div>
-        </div>
-      </a-layout-header>
       <a-layout-content style="margin: 0 16px">
         <a-breadcrumb style="margin: 16px 3px 0">
           <my-tabs></my-tabs>
@@ -52,10 +78,11 @@
         </div>
       </a-layout-content>
       <a-layout-footer style="text-align: center">
-        掘金地址:
-        <a href="https://juejin.cn/post/7025459298880733197">https://juejin.cn/post/7025459298880733197</a>
+        卡普瑞南山项目 2023/09/15
       </a-layout-footer>
     </a-layout>
+    </a-layout>
+    
   </a-layout>
 </template>
 <script>
@@ -73,47 +100,62 @@ export default {
       collapsed: false,
       menu: [
         {
-          name: '主项目',
-          children: [
-            {
-              name: '首页',
-              path: '/main/index',
-            },
-            {
-              name: '列表',
-              path: '/main/list',
-            },
-          ],
+          name: '首页',
+          path: '/main/index',
+          icon: "global"
         },
         {
-          name: '客户项目',
-          children: [
-            {
-              name: 'vite客户列表页',
-              path: '/crm/list',
-            },
-            // {
-            //   name: "vite客户详情页",
-            //   path: "/crm/detail",
-            // }
-          ],
+            name: '站点画像',
+            path: '/aesa/overview',
+            icon: 'home'
         },
         {
-          name: '销售项目',
-          children: [
-            {
-              name: 'sale项目test1',
-              path: '/sale/test1',
-            },
-            {
-              name: 'sale项目test2',
-              path: '/sale/test2',
-            },
-            {
-              name: 'sale项目test3',
-              path: '/sale/test3',
-            },
-          ],
+            name: '告警地图',
+            path: '/aesa/alarmMap',
+            icon: 'environment'
+        },
+        {
+            name: '溯源分析',
+            icon: 'bar-chart',
+            children: [
+                {
+                    name: '污染分析',
+                    path: '/aesa/panalysis',
+                },
+                {
+                    name: '污染溯源',
+                    path: '/aesa/psource'
+                }
+            ]
+        },
+        {
+            name: '污染传输',
+            icon: 'swap',
+            children: [
+                {
+                    name: '前后向轨迹分析',
+                    path: '/aesa/fbanalysis',
+                },
+                {
+                    name: '气团轨迹聚类分析',
+                    path: '/aesa/airanalysis'
+                }
+            ]
+        },
+        {
+            name: '污染特征分析',
+            icon: 'heat-map',
+            path: '/aesa/pcanalysis'
+        },
+        {
+            name: '气象相关性分析',
+            icon: 'line-chart',
+            path: '/aesa/wcanalysis'
+        },
+        {
+            name: '臭氧预测分析',
+            icon: 'radar-chart',
+            path: '/aesa/o3analysis'
         },
       ],
     };
@@ -126,17 +168,26 @@ export default {
   computed: {
     ...mapGetters(['getCacheTabs', 'getTabItems', 'getToken']),
     message() {
-      return globalStore.getGlobalState('message');
-    },
+      return globalStore.getGlobalState('routerMessage');
+    }
   },
   created() {
     console.log(`created成功`);
     this.resetRouter();
   },
+  mounted() {
+    console.log("getCacheTabs:", this.getCacheTabs)
+  },
   methods: {
-    selecMenu(index, cIndex) {
-      const path = this.menu[index].children[cIndex].path;
-      const name = this.menu[index].children[cIndex].name;
+    selecMenu(index, cIndex = -1) {
+        let path = '', name = '';
+        if (cIndex === -1) {
+            path = this.menu[index].path;
+            name = this.menu[index].name;
+        } else {
+            path = this.menu[index].children[cIndex].path;
+            name = this.menu[index].children[cIndex].name;
+        }
       if (this.isQianKun()) {
         // 走qiankun路由
         const type = path.split('/')[1];
@@ -158,7 +209,7 @@ export default {
           type: 'main',
         });
       }
-      this.$router.push({ path: this.menu[index].children[cIndex].path });
+      this.$router.push({ path });
       this.isQianKun() && this.goQiankun(); // 走子项目路由
     },
     // 重新检查
@@ -199,4 +250,43 @@ export default {
 .ant-tabs-bar {
   margin: 0 !important;
 }
+</style>
+
+<style lang="less" scoped>
+    #components-layout-demo-side {
+        .header {
+            position: relative;
+            height: 64px;
+            line-height: 64px;
+            padding: 0 80px 0 50px;
+            background: rgb(0, 170, 117);
+            display: flex;
+            flex-flow: row;
+            justify-content: space-between;
+            .toplogo {
+                color: #fff;
+                font-size: 24px;
+                letter-spacing: 0.2em;
+                img {
+                    width: 56px;
+                    height: 56px;
+                }
+            }
+            .ant-menu-dark, .ant-menu-dark .ant-menu-sub {
+                background: rgb(0, 170, 117);
+            }
+            .ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+                background: rgb(0, 141, 95);
+            }
+            .user {
+                position: absolute;
+                right: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: rgba(255, 255, 255, 0.65)
+            }
+        }
+    }
+    
 </style>

@@ -22,9 +22,14 @@ const getters = {
 const mutations = {
   // 初始化tab
   initTabItem(){
+    debugger
     const tabItems = Cookies.get('tabItems');
     const activeTabs = Cookies.get('activeTabs');
-    state.tabItems = tabItems ? JSON.parse(tabItems) : [];
+    let initTab = [];
+    if (tabItems) {
+        initTab = JSON.parse(tabItems);
+    }
+    state.tabItems = initTab.length ? initTab : [{ "name": "首页", "path": "/main/index", "componentName": "mainIndex", "type": "main" }];
     state.activeTabs = activeTabs ? activeTabs : 0;
   },
   // 设置页面显示tabItem

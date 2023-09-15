@@ -5,7 +5,7 @@
       v-for="(item, index) in tabList"
       :key="index"
       :tab="item.name"
-      :closable="true"
+      :closable="tabList.length !== 1"
     >
     </a-tab-pane>
   </a-tabs>

@@ -9,17 +9,11 @@ export default {
       loadedApp: {},
       microApps: [
         {
-          name: 'crm',
-          entry: 'http://localhost:8081',
-          container: '#crm_Container',
-          activeRule: '/crm',
-        },
-        {
-          name: 'sale',
-          entry: 'http://localhost:8082',
-          container: '#appChild2',
-          activeRule: '/sale',
-        },
+            name: 'aesa',
+            entry: 'http://localhost:8081',
+            container: '#appChild1',
+            activeRule: '/aesa',
+        }
       ],
     };
   },

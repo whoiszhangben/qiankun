@@ -1,5 +1,6 @@
 <template>
   <div>
+    父系统首页
     <div style="background: #ececec; padding: 30px">
       <a-row :gutter="16">
         <a-col :span="12">
