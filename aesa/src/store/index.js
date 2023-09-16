@@ -7,6 +7,7 @@ export default new Vuex.Store({
     state: {
         cacheTabs:[], // 保存需要缓存的数组
         parentTabItem:[{}],// 父级tabs的同步数据
+        theme: ""
       },
       getters:{
         getCacheTabs(state){
@@ -15,6 +16,9 @@ export default new Vuex.Store({
         getParentTabItem(state){
           return state.parentTabItem;
         },
+        getTheme(state) {
+            return state.theme;
+        }
       },
       mutations: {
         setCacheTabs(state, cacheTabs){
@@ -23,6 +27,9 @@ export default new Vuex.Store({
         setParentTabItem(state, parentTabItem){
           state.parentTabItem = parentTabItem;
         },
+        setTheme(state, theme) {
+            state.theme = theme;
+        }
       },
       actions: {
         reloadCashsTabs({commit}, data) {

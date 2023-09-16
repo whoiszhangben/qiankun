@@ -9,7 +9,8 @@ const initialState = Vue.observable({
   routerMessage: "",
   isLogin: false,
   token: "",
-  tabList: []
+  tabList: [],
+  theme: ""
 });
 
 const actions = initGlobalState(initialState);

@@ -30,8 +30,14 @@ if (!window.__POWERED_BY_QIANKUN__) {
 
 function storeTest(props) {
     if (props.onGlobalStateChange) {
+        
       props.onGlobalStateChange((value, prev) => {
         store.dispatch('reloadCashsTabs', value.tabList);
+        // 在挂载子应用之前，监听主题信息的变化
+        if (value.theme !== prev.theme) {
+            props.theme = value.theme;
+            render(props, Vue);
+        }
         console.log(`[子应用aesa接受数据成功 - ${props.name}]:`, value, prev);
       }, true);
     }

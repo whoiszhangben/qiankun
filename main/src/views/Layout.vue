@@ -1,7 +1,7 @@
 <template>
   <a-layout id="components-layout-demo-side" style="min-height: 100vh">
     <div class="header">
-      <div class="toplogo"><img src='../assets/logo.png' />大气环境溯源分析</div>
+      <div class="toplogo"><img src='../assets/logo.png' @click="toggleTheme" />大气环境溯源分析</div>
       <a-menu
         theme="dark"
         mode="horizontal"
@@ -234,6 +234,21 @@ export default {
       this.$store.commit('clearTabs');
       window.location.reload();
     },
+    toggleTheme() {
+        let theme = localStorage.getItem("theme") || "theme-0";
+        if (theme === "theme-0") {
+            globalStore.setGlobalState({
+                theme: "theme-1"
+            });
+            localStorage.setItem("theme", "theme-1")
+        } else {
+           globalStore.setGlobalState({
+                theme: "theme-0"
+            });
+            localStorage.setItem("theme", "theme-0") 
+        }
+        
+    }
   },
 };
 </script>
