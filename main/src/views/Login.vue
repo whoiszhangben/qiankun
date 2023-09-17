@@ -25,7 +25,7 @@
           >
             记住密码
           </a-checkbox>
-          <a-button type="primary" @click="handleSubmit" class="login-form-button">去登陆</a-button>
+          <a-button type="primary" @click="handleSubmit" class="login-form-button">去登录</a-button>
         </a-form-item>
       </a-form>
     </div>

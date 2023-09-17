@@ -1,6 +1,6 @@
-import { loadMicroApp, start } from 'qiankun';
-import { mapGetters } from 'vuex';
-import actions from '../globalStore';
+import { loadMicroApp, start } from "qiankun";
+import { mapGetters } from "vuex";
+import actions from "../globalStore";
 
 export default {
   data() {
@@ -9,29 +9,33 @@ export default {
       loadedApp: {},
       microApps: [
         {
-            name: 'aesa',
-            entry: 'http://localhost:8081',
-            container: '#appChild1',
-            activeRule: '/aesa',
-        }
+          name: "aesa",
+          entry: "http://localhost:8081",
+          container: "#appChild1",
+          activeRule: "/aesa",
+        },
       ],
     };
   },
   computed: {
-    ...mapGetters(['getToken']),
+    ...mapGetters(["getToken"]),
   },
   methods: {
-    isQianKun( routePath = this.$route.path ){
-      const microApp = this.microApps.find(item => routePath.includes(item.activeRule));
+    isQianKun(routePath = this.$route.path) {
+      const microApp = this.microApps.find((item) =>
+        routePath.includes(item.activeRule)
+      );
       return microApp;
     },
-    goQiankun( routePath = this.$route.path ) {
+    goQiankun(routePath = this.$route.path) {
       const loadedApp = this.loadedApp;
-      const microApp = this.microApps.find(item => routePath.includes(item.activeRule));
+      const microApp = this.microApps.find((item) =>
+        routePath.includes(item.activeRule)
+      );
       // 如果是子应用
       if (microApp) {
         // 将主应用的路由转化为子路由URL
-        const childRoutePath = routePath.replace(microApp.activeRule, '');
+        const childRoutePath = routePath.replace(microApp.activeRule, "");
         // 如果没有加载当前子应用
         if (!loadedApp[microApp.name]) {
           // 开始加载
@@ -39,8 +43,8 @@ export default {
             ...microApp,
             props: {
               token: this.getToken,
-              getGlobalState: actions.getGlobalState // 下发getGlobalState方法
-            }
+              getGlobalState: actions.getGlobalState, // 下发getGlobalState方法
+            },
           }); // 加载子应用
           // 开始完成
           app.loadPromise.then(() => {});
