@@ -1,13 +1,15 @@
 import "./public-path"; // 注意需要引入public-path，qiankun.js固定的内容
-import registerMainStore from "../../main/src/globalStore/register";
+import registerMainStore from "../../parent-system/src/globalStore/register";
 import Vue from "vue";
 import App from "./App.vue";
-import store from "./store";
+import "./registerServiceWorker";
 import router from "./router";
-import "./utils/element_lazy";
+import store from "./store";
 import "./theme/theme.less";
+import "./utils/antd_lazy";
 
 Vue.config.productionTip = false;
+
 // Vue实例
 let vueApp = null;
 
@@ -20,7 +22,7 @@ const render = (props = {}, Vue) => {
   vueApp = new Vue({
     router,
     store,
-    render: (h) => h(App),
+    render: h => h(App)
   }).$mount(container ? container.querySelector("#app") : "#app"); // 如果是在基座中运行，需要在基座的container内找到#app
   if (theme) {
     if (container) {
@@ -64,8 +66,8 @@ function storeTest(props) {
       user: {
         name: props.name,
         messages: "llllll",
-        developer: props.developer,
-      },
+        developer: props.developer
+      }
     });
 }
 

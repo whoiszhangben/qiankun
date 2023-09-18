@@ -8,11 +8,13 @@
   },
   "scripts": {
     "install": "npm-run-all --serial install:*",
-    "install:main": "cd main && npm install",
+    "install:main": "cd parent-system && npm install",
     "install:aesa": "cd aesa && npm install",
     "serve": "npm-run-all --parallel serve:*",
-    "serve:main": "cd main && npm run serve",
-    "serve:aesa": "cd aesa && npm run serve"
+    "serve:main": "cd parent-system && npm run serve",
+    "serve:aesa": "cd aesa && npm run serve",
+    "lint:main": "cd parent-system && npm run lint --fix",
+    "lint:aesa": "cd aesa && npm run lint --fix"
   },
   "keywords": [
     "main",
@@ -20,5 +22,6 @@
   ],
   "author": "whoiszhangben",
   "license": "MIT",
-  "__npminstall_done": false
+  "__npminstall_done": false,
+  "dependencies": {}
 }

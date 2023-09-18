@@ -1,16 +1,60 @@
 <template>
-  <div>
-    <el-button type="primary">测试按钮</el-button>
-    <el-button size="mini" type="primary" icon="el-icon-plus">新增用户</el-button>
+  <div class="overview">
+    <div class="left">
+        <a-card size="small" title="Card title" :bordered="false">
+            <p>Card content</p>
+            <p>Card content</p>
+            <p>Card content</p>
+        </a-card>
+        <a-card size="small" title="Card title" :bordered="false">
+            <p>Card content</p>
+            <p>Card content</p>
+            <p>Card content</p>
+        </a-card>
+        <a-card size="small" title="Card title" :bordered="false">
+            <p>Card content</p>
+            <p>Card content</p>
+            <p>Card content</p>
+        </a-card>
+    </div>
+    <div class="middle" ref="map"></div>
+    <div class="right">
+        <a-card size="small" title="Card title" :bordered="false">
+            <p>Card content</p>
+            <p>Card content</p>
+            <p>Card content</p>
+        </a-card>
+        <a-card size="small" title="Card title" :bordered="false">
+            <p>Card content</p>
+            <p>Card content</p>
+            <p>Card content</p>
+        </a-card>
+        <a-card size="small" title="Card title" :bordered="false">
+            <p>Card content</p>
+            <p>Card content</p>
+            <p>Card content</p>
+        </a-card>
+    </div>
   </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
+<style lang="less" scoped>
+.overview {
+    display: grid;
+    grid-template-columns: 320px 1fr 320px;
+    .left {
+        display: grid;
+        grid-template-rows: repeat(auto-fit, minmax(250px, 1fr));
+        grid-row-gap: 15px;
+    }
+    .right {
+        display: grid;
+        grid-template-rows: repeat(3, 1fr);
+        grid-row-gap: 15px;
+    }
+}
 </style>
